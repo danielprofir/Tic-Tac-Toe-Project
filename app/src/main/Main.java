@@ -12,6 +12,10 @@ import java.io.InputStreamReader;
 
 public class Main {
 
+    /**
+     * Entry point for the Tic-Tac-Toe game.
+     * Handles player setup (human or computer), game loop, and displaying the board.
+     */
     public static void main(String[] args) {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -153,7 +157,11 @@ public class Main {
     }
 
     /**
-     * Reads a line from input or returns a default value if input is null or blank.
+     * Reads a line from the given BufferedReader, returning a default value if input is empty or null.
+     * @param input        the BufferedReader to read from
+     * @param defaultValue the value to return if input is empty or null
+     * @return the trimmed line entered by the user, or the default value if no input
+     * @throws IOException if an I/O error occurs
      */
     private static String readLineOrDefault(BufferedReader input, String defaultValue) throws IOException {
         String line = input.readLine();
@@ -161,7 +169,9 @@ public class Main {
     }
 
     /**
-     * Renders the board as a string with proper formatting.
+     * Returns a string representation of the board in a human-readable format.
+     * @param board the game board
+     * @return formatted string representing the board
      */
     private static String renderBoard(Board board) {
         StringBuilder sb = new StringBuilder();
@@ -182,6 +192,14 @@ public class Main {
         return sb.toString();
     }
 
+    /**
+     * Creates a Player instance based on type and strategy.
+     * @param name     the player's name
+     * @param mark     the player's mark ('X' or 'O')
+     * @param type     "h" for human, "c" for computer
+     * @param strategy "s" for smart, "r" for random (ignored for human)
+     * @return a Player instance, either Human (Player) or ComputerPlayer
+     */
     private static Player createPlayer(String name, char mark, String type, String strategy) {
         if ("c".equalsIgnoreCase(type)) {
             ComputerPlayer.Strategy chosen = ("r".equalsIgnoreCase(strategy))

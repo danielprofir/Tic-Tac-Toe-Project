@@ -1,5 +1,4 @@
 package lib.src.main;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,6 +12,12 @@ public final class AIMoveSelector {
 
     private AIMoveSelector() {}
 
+    /**
+     * Selects a random empty cell from the board.
+     * @param board the current game board
+     * @return an array of two integers {row, column} representing a randomly chosen empty cell,
+     *         or null if the board has no empty cells.
+     */
     public static int[] selectRandomMove(Board board) {
         List<int[]> empties = new ArrayList<>();
         for (int r = 0; r < 3; r++) {
@@ -27,7 +32,16 @@ public final class AIMoveSelector {
     }
 
     /**
-     * Simple "smart" heuristic: win if possible, block opponent, center, corners, then edges.
+     * Selects a move based on a simple heuristic strategy:
+     * Win if possible
+     * Block the opponent if they could win next
+     * Take the center if available
+     * Take a corner if available
+     * Take an edge if available
+     * @param board  the current game board
+     * @param myMark the mark of the AI player ('X' or 'O')
+     * @return an array of two integers {row, column} representing the chosen move,
+     *         or null if no moves are availablem
      */
     public static int[] selectHeuristicMove(Board board, char myMark) {
         char opponent = (myMark == 'X') ? 'O' : 'X';
@@ -58,6 +72,13 @@ public final class AIMoveSelector {
         return null;
     }
 
+    /**
+     * Finds a move that would result in an immediate win for the given mark.
+     * @param board the current game board
+     * @param mark  the player's mark ('X' or 'O')
+     * @return an array of two integers {row, column} representing a winning move,
+     *         or null if no winning move exists.
+     */
     private static int[] findWinningMove(Board board, char mark) {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
@@ -73,6 +94,15 @@ public final class AIMoveSelector {
         return null;
     }
 
+    /**
+     * Determines whether placing the given mark at the specified cell
+     * would complete a line (row, column, or diagonal) and result in a win.
+     * @param board the current game board
+     * @param row   the row index of the cell
+     * @param col   the column index of the cell
+     * @param mark  the player's mark ('X' or 'O')
+     * @return true if placing the mark at (row, col) would complete a line, false otherwise
+     */
     private static boolean wouldCompleteLine(Board board, int row, int col, char mark) {
         // Row
         boolean rowWin = true;

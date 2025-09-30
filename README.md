@@ -21,7 +21,8 @@ The CLI provides an interactive game where you can:
 - For computer players, choose AI strategy (smart or random) with `[s/r]`
 - Play a full game with automatic computer moves
 
----
+**Note:** To run tests, you'll need to add JUnit to your classpath
+
 
 ## Documentation
 
